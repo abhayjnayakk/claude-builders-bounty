@@ -1,25 +1,27 @@
 # CHANGELOG Generator Skill
 
-A Claude Code skill that generates a structured CHANGELOG from git history.
+A Claude Code skill that generates a structured `CHANGELOG.md` from git history using the Keep a Changelog format.
 
 ## Installation
 
-Copy `changelog-skill.md` to your `.claude/skills/` directory or paste into your `CLAUDE.md`.
+1. Copy `SKILL.md` into `.claude/skills/generate-changelog/SKILL.md`.
+2. Open a git repository with Claude Code.
+3. Run `/generate-changelog`.
 
 ## Usage
 
 ```
-claude "generate a changelog for the last 10 commits"
-claude "generate a changelog since v2.1.0"
-claude "generate a changelog for the last 30 days"
+/generate-changelog
+/generate-changelog since v2.1.0
+/generate-changelog for the last 10 commits
 ```
 
 ## What It Does
 
-1. Runs `git log` with structured format
-2. Categorizes commits by type (feat, fix, docs, refactor, etc.)
-3. Groups into Keep a Changelog sections: Added, Changed, Fixed, Deprecated, Removed, Security
-4. Outputs a clean Markdown CHANGELOG entry
+1. Finds commits since the latest git tag, falling back to the last 20 commits when no tags exist.
+2. Categorizes commits by type (`feat`, `fix`, `refactor`, `deps`, and related prefixes).
+3. Groups user-facing changes into `Added`, `Changed`, `Fixed`, and `Removed`.
+4. Outputs a clean Markdown changelog entry that can be inserted into `CHANGELOG.md`.
 
 ## Example Output
 
@@ -37,11 +39,8 @@ claude "generate a changelog for the last 30 days"
 ### Changed
 - Upgraded database driver to v3.2.0 (#144)
 - Improved error messages for API validation (#141)
-
-### Deprecated
-- `utils.old_formatter()` - use `utils.format()` instead (#140)
 ```
 
 ## Skill Prompt
 
-See `changelog-skill.md` for the full skill definition that teaches Claude Code how to generate changelogs following this format.
+See `SKILL.md` for the full skill definition.
